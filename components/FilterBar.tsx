@@ -1,12 +1,16 @@
 import React from 'react';
-import { Search, ChevronDown, Clock } from 'lucide-react';
+import { ChevronDown, Clock } from 'lucide-react';
 
-export const FilterBar: React.FC = () => {
+interface FilterBarProps {
+    onClose?: () => void;
+}
+
+export const FilterBar: React.FC<FilterBarProps> = ({ onClose }) => {
   return (
-    <div className="bg-white p-4 rounded-sm border-b border-gray-200 relative">
+    <div className="bg-white p-4 rounded-sm border-b border-gray-200 relative mb-4">
       <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
         
-        {/* Add Button - Placed before creator input as requested */}
+        {/* Add Button */}
         <button className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-1.5 rounded text-sm shadow-sm transition-colors font-medium">
           新增
         </button>
@@ -77,12 +81,17 @@ export const FilterBar: React.FC = () => {
       </div>
       
       {/* The "Collapse" Tab hanging from the bottom right */}
-      <div className="absolute -bottom-6 right-4">
-        <div className="bg-blue-50 text-blue-500 text-xs px-4 py-0.5 rounded-b-lg cursor-pointer flex items-center shadow-sm border border-t-0 border-blue-100 hover:bg-blue-100 transition-colors">
-            收起
-            <ChevronDown className="w-3 h-3 ml-1 transform rotate-180" />
+      {onClose && (
+        <div className="absolute -bottom-6 right-4">
+            <div 
+                onClick={onClose}
+                className="bg-blue-50 text-blue-500 text-xs px-4 py-0.5 rounded-b-lg cursor-pointer flex items-center shadow-sm border border-t-0 border-blue-100 hover:bg-blue-100 transition-colors"
+            >
+                收起
+                <ChevronDown className="w-3 h-3 ml-1 transform rotate-180" />
+            </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

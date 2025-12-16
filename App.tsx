@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FilterBar } from './components/FilterBar';
 import { Table } from './components/Table';
 import { Pagination } from './components/Pagination';
 import { MOCK_DATA } from './constants';
+import { SystemNotice } from './components/SystemNotice';
+import { DataOverview } from './components/DataOverview';
 
 const App: React.FC = () => {
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-[#f0f2f5] p-6 font-sans">
-      <div className="max-w-[1600px] mx-auto space-y-4">
+      <div className="max-w-[1600px] mx-auto">
         
-        {/* Header Title */}
-        <h1 className="text-xl font-bold text-gray-800 mb-4">师傅录入</h1>
+        {/* Scrolling System Notice */}
+        <SystemNotice />
         
-        {/* Filter Section (Now includes Add button) */}
-        <FilterBar />
+        {/* Data Overview & Filter Toggle */}
+        <DataOverview 
+            isFilterVisible={isFilterOpen} 
+            onToggleFilter={() => setIsFilterOpen(!isFilterOpen)} 
+        />
+        
+        {/* Filter Section (Conditionally rendered) */}
+        {isFilterOpen && (
+            <FilterBar onClose={() => setIsFilterOpen(false)} />
+        )}
 
         {/* Main Content Area */}
         <div className="space-y-4 pt-2">
