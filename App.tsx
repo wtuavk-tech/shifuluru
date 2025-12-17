@@ -10,8 +10,8 @@ const App: React.FC = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#f0f2f5] p-6 font-sans">
-      <div className="max-w-[1600px] mx-auto">
+    <div className="min-h-screen bg-[#f0f2f5] p-[12px] font-sans">
+      <div className="w-full mx-auto">
         
         {/* Scrolling System Notice */}
         <SystemNotice />
