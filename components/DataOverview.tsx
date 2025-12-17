@@ -1,5 +1,5 @@
 import React from 'react';
-import { Activity, Search } from 'lucide-react';
+import { Activity, Search, TrendingUp } from 'lucide-react';
 
 interface DataOverviewProps {
   onToggleFilter: () => void;
@@ -18,24 +18,23 @@ export const DataOverview: React.FC<DataOverviewProps> = ({ onToggleFilter, isFi
       {/* Center Stats */}
       <div className="flex-1 flex items-center justify-around px-8">
         <div className="flex items-center gap-2">
-          <span className="text-[#666] text-sm">录单:</span>
+          <span className="text-[#666] text-sm">今日新增师傅数:</span>
+          <span className="text-xl font-bold text-[#333]">12</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[#666] text-sm">当月新增师傅数:</span>
           <span className="text-xl font-bold text-[#333]">128</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-[#666] text-sm">今日派单:</span>
-          <span className="text-xl font-bold text-[#333]">42</span>
+          <span className="text-[#666] text-sm">上月新增师傅数:</span>
+          <span className="text-xl font-bold text-[#333]">105</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-[#666] text-sm">今日业绩:</span>
-          <span className="text-xl font-bold text-[#00a854]">12850.0</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-[#666] text-sm">收款率:</span>
-          <span className="text-xl font-bold text-[#333]">98.5%</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-[#666] text-sm">退款:</span>
-          <span className="text-xl font-bold text-[#f5222d]">450.5</span>
+          <span className="text-[#666] text-sm">环比率:</span>
+          <div className="flex items-center text-[#f5222d]">
+            <span className="text-xl font-bold">+21.9%</span>
+            <TrendingUp className="w-4 h-4 ml-1" />
+          </div>
         </div>
       </div>
 
