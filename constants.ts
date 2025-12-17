@@ -1,139 +1,74 @@
 import { WorkerEntry } from './types';
 
-export const MOCK_DATA: WorkerEntry[] = [
-  {
-    id: 1,
-    creator: '张三',
-    source: '微信小程序',
-    details: '你好，我是上海市空调服务团队！空调安装，移机，维修，回收等空调服务！专业空调！师傅多人，服务车多辆！需要上海市空调服务合作团队吗？ 1312075 8507微同',
-    remark: '',
-    status: 'unstocked',
-    createdAt: '2025-12-16 08:38:55',
-  },
-  {
-    id: 2,
-    creator: '李四',
-    source: '后台录入',
-    details: '15353994160 延安市宝塔区 冰箱。电视。洗衣机。燃气灶。集成灶。油烟机维修',
-    remark: '',
-    status: 'unstocked',
-    createdAt: '2025-12-15 20:47:11',
-  },
-  {
-    id: 3,
-    creator: '王五',
-    source: 'H5页面',
-    details: '19568888110 负责开锁换锁这方面 长沙县长沙市都可以安排',
-    remark: '',
-    status: 'stocked',
-    createdAt: '2025-12-15 17:08:58',
-  },
-  {
-    id: 4,
-    creator: '赵六',
-    source: '微信小程序',
-    details: '我是油漆师傅，广州白云，越秀，荔湾，天河，海珠，墙面刷新的都可以做，13277116865',
-    remark: '',
-    status: 'unstocked',
-    createdAt: '2025-12-15 14:06:11',
-  },
-  {
-    id: 5,
-    creator: '孙七',
-    source: '系统同步',
-    details: '普遍家电都可以 冰箱。电视。洗衣机。燃气灶。集成灶。油烟机。15353994160延安市宝塔区',
-    remark: '',
-    status: 'unstocked',
-    createdAt: '2025-12-15 13:00:13',
-  },
-  {
-    id: 6,
-    creator: '周八',
-    source: '微信小程序',
-    details: '18878799535，南宁市市区，管道疏通',
-    remark: '',
-    status: 'unstocked',
-    createdAt: '2025-12-15 10:06:11',
-  },
-  {
-    id: 7,
-    creator: '吴九',
-    source: '后台录入',
-    details: '19375217017 长沙 窗帘安装',
-    remark: '',
-    status: 'unstocked',
-    createdAt: '2025-12-14 16:34:16',
-  },
-  {
-    id: 8,
-    creator: '郑十',
-    source: 'H5页面',
-    details: '电话15139723236 全南京 主要空调维修安装',
-    remark: '',
-    status: 'unstocked',
-    createdAt: '2025-12-14 16:33:52',
-  },
-  {
-    id: 9,
-    creator: '钱十一',
-    source: '系统同步',
-    details: '电视机维修 13384929698 在西安 需要电视维修师傅吗？',
-    remark: '',
-    status: 'unstocked',
-    createdAt: '2025-12-14 15:58:36',
-  },
-  {
-    id: 10,
-    creator: '孙十二',
-    source: '后台录入',
-    details: '18302138860 上海市宝山区 做空调维修',
-    remark: '',
-    status: 'unstocked',
-    createdAt: '2025-12-14 12:09:15',
-  },
-  {
-    id: 11,
-    creator: '周十三',
-    source: '微信小程序',
-    details: '13812345678 苏州市工业园区 专业水电维修',
-    remark: '',
-    status: 'unstocked',
-    createdAt: '2025-12-14 11:15:33',
-  },
-  {
-    id: 12,
-    creator: '吴十四',
-    source: '系统同步',
-    details: '承接家庭装修，木工吊顶，隔断，13998887777',
-    remark: '',
-    status: 'unstocked',
-    createdAt: '2025-12-14 10:20:00',
-  },
-  {
-    id: 13,
-    creator: '郑十五',
-    source: '后台录入',
-    details: '13666666666 杭州市西湖区 通下水道，马桶疏通',
-    remark: '',
-    status: 'stocked',
-    createdAt: '2025-12-14 09:45:12',
-  },
-  {
-    id: 14,
-    creator: '冯十六',
-    source: 'H5页面',
-    details: '专业做防水补漏，屋顶，卫生间，13555555555',
-    remark: '',
-    status: 'unstocked',
-    createdAt: '2025-12-14 09:10:05',
-  },
-  {
-    id: 15,
-    creator: '陈十七',
-    source: '微信小程序',
-    details: '13333333333 北京市朝阳区 灯具安装维修',
-    remark: '',
-    status: 'unstocked',
-    createdAt: '2025-12-14 08:30:20',
-  },
+const NAMES = [
+  '于谦', '王昭君', '许仙', '线下面K', '王大拿', '李李', 
+  '张三', '李四', '王五', '赵六', '孙七', '周八', '吴九', '郑十',
+  '陈十一', '刘十二', '朱十三', '秦十四', '尤十五', '许十六'
 ];
+
+const PROJECTS = ['家具维修', '热水器安装/拆除', '疏通蹲厕,数码回收,家具回收', '开荒保洁', '搬运电瓶车', '家庭水电,打孔扩孔'];
+const REGIONS = ['江西省南昌市新建区', '河北省石家庄长安区', '河北省秦皇岛市海港区', '天津市河东区', '山西省长治市潞州区', '北京市东城区'];
+
+export const MOCK_DATA: WorkerEntry[] = Array.from({ length: 20 }, (_, index) => {
+  const name = NAMES[index % NAMES.length];
+  const phonePrefix = ['157', '158', '139', '188', '133', '186'][index % 6];
+  const phone = `${phonePrefix}${Math.floor(10000000 + Math.random() * 90000000)}`;
+  
+  return {
+    id: index + 1,
+    name: name,
+    phone: phone,
+    uid: (440 - index * 13 > 0 ? 440 - index * 13 : 440 + index).toString(),
+    isCertified: true,
+    remark: index === 2 ? '2025-10-16 17:35:28' : '',
+    acceptOrders: index % 4 !== 3, 
+    canDispatch: index % 4 !== 3,
+    isOffline: index % 3 !== 0,
+    region: REGIONS[index % REGIONS.length],
+    project: PROJECTS[index % PROJECTS.length],
+    subProject: '',
+    splitInfo: {
+      type: index % 3 === 2 ? '固定分成' : '无固定分成',
+      removeCost: true,
+      ratio: Number((0.3 + Math.random() * 0.4).toFixed(1)),
+    },
+    quality: ['优秀', '良好', '一般'][index % 3],
+    completion: {
+      last30Days: `${Math.floor(Math.random() * 50)}%(${Math.floor(Math.random()*5)}/${Math.floor(Math.random()*20 + 5)})`,
+      total: `${Math.floor(Math.random() * 50)}%(${Math.floor(Math.random()*10)}/${Math.floor(Math.random()*50 + 10)})`,
+      last10: `${Math.floor(Math.random() * 50)}%(${Math.floor(Math.random()*2)}/10)`,
+    },
+    orderValue: {
+      avg: `${(Math.random() * 20).toFixed(2)}元(${Math.floor(Math.random()*200)}/${Math.floor(Math.random()*20)})`,
+      avgCompleted: `${(Math.random() * 30).toFixed(2)}元(${Math.floor(Math.random()*200)}/${Math.floor(Math.random()*10)})`,
+    },
+    inTransit: {
+      current: Math.floor(Math.random() * 8),
+      last10: Math.floor(Math.random() * 8),
+    },
+    referral: {
+      name: '推荐人:',
+      commission: '推荐奖励金额:',
+    },
+    score: {
+      composite: Number((50 + Math.random() * 50).toFixed(1)),
+      credit: 100,
+    },
+    deposit: {
+      required: 0.1,
+      paid: 0.03,
+    },
+    depositType: index % 2 === 0 ? '每单小额保证金' : '全额缴纳保证金',
+    pendingOrderCount: index % 2 === 0 ? 3 : 0,
+    evaluationStatus: '待评价',
+    regMethod: index % 3 === 0 ? '手动新增' : '用户注册',
+    certInfo: {
+      person: index % 3 === 0 ? '' : '管理员',
+      time: index % 3 === 0 ? '' : `2025-11-11 ${String(10+index).slice(-2)}:46:52`,
+    },
+    platformFee: {
+      tech: '0.01',
+      penalty: '0',
+    },
+  };
+});
