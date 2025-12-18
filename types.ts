@@ -47,6 +47,7 @@ export interface WorkerEntry {
   pendingOrderCount: number;
   evaluationStatus: string;
   regMethod: string;
+  source: string; // Added source field
   certInfo: {
     person: string;
     time: string;
