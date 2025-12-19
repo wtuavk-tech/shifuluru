@@ -1,8 +1,26 @@
 import { WorkerEntry } from './types';
 
-const NAMES = ['于谦', '王昭君', '许仙', '线下面K', '王大拿', '李李', '张三', '李四', '王五', '赵六', '陈小胖', '萧炎', '唐三', '林动', '牧尘', '韩立', '石昊', '叶凡', '苏铭', '孟浩'];
+const NAMES = ['楚蒂冈', '1111', '关姥爷在此', '刘仕', '色调刚发的', '张师傅', '王大拿', '李李', '张三', '李四', '王五', '赵六', '陈小胖', '萧炎', '唐三', '林动', '牧尘', '韩立', '石昊', '叶凡'];
+const LOCATIONS = ['上海市崇明区', '河南省洛阳市吉利区', '陕西省西安市雁塔区', '河南省洛阳市西工区', '新疆维吾尔自治区哈密市巴里坤哈萨克自治县', '北京市朝阳区'];
+const TAG_POOL = ['黑单', '成单率低', '少给钱', '不按格式回款', '新黑名单', '跳单', '虚报报价', '投诉多'];
+const NOTES = [
+  '', 
+  '', 
+  '', 
+  '发的感受发到发货的红烧豆腐还是合肥市但是发货', 
+  '胜多负少大幅度撒个范德萨合适的适山东发货分公司计算机', 
+  '多次遭到客户投诉服务态度差'
+];
+const AVATARS = [
+  'https://api.dicebear.com/7.x/avataaars/svg?seed=1',
+  'https://api.dicebear.com/7.x/avataaars/svg?seed=2',
+  'https://api.dicebear.com/7.x/avataaars/svg?seed=3',
+  'https://api.dicebear.com/7.x/avataaars/svg?seed=4',
+  'https://api.dicebear.com/7.x/avataaars/svg?seed=5',
+  'https://api.dicebear.com/7.x/avataaars/svg?seed=6'
+];
+
 const ADMINS = ['管理员A', '审核员01', '系统自动', '陈序员', '张经理'];
-const STATUSES = ['已上传', '待审核', '已拒绝', '审核通过', '待补交', '部分缴纳', '已退回'];
 
 export const GENERATE_MOCK_DATA = (tab: string): any[] => {
   return Array.from({ length: 20 }, (_, index) => {
@@ -12,7 +30,28 @@ export const GENERATE_MOCK_DATA = (tab: string): any[] => {
     const orderId = `251216090${10000 + index}`;
     const amount = (index * 15.5 + 0.1).toFixed(2);
 
-    // Default object with all potential keys to avoid "-" fallback where possible
+    if (tab === '师傅黑名单') {
+      const loc = LOCATIONS[index % LOCATIONS.length];
+      const tags = [];
+      const tagCount = (index % 3) + 1;
+      for(let i=0; i<tagCount; i++) {
+        tags.push(TAG_POOL[(index + i) % TAG_POOL.length]);
+      }
+      
+      return {
+        id: index + 1,
+        avatar: AVATARS[index % AVATARS.length],
+        '师傅姓名/昵称': name,
+        '归属省市': loc,
+        '手机号': `1${(index % 9) + 3}${Math.floor(10000000 + Math.random() * 90000000)}`,
+        wechatId: `wx_${Math.random().toString(36).substring(7)}`,
+        tags: tags,
+        '状态': '已通过',
+        '备注': NOTES[index % NOTES.length] || '',
+        '序号': index + 1
+      };
+    }
+
     const row: any = {
       id: index + 1,
       '用户名': name,

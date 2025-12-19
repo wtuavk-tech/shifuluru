@@ -9,9 +9,16 @@ import { NavigationMenu } from './components/NavigationMenu';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('师傅库');
+  const [showFilters, setShowFilters] = useState(false);
 
   // Generate 20 records for each specific view
   const currentData = GENERATE_MOCK_DATA(activeTab);
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    // Optional: Hide filters when switching tabs if you want strictly hidden by default per view
+    // setShowFilters(false); 
+  };
 
   return (
     <div className="min-h-screen bg-[#f0f2f5] p-[12px] font-sans">
@@ -21,13 +28,16 @@ const App: React.FC = () => {
         <SystemNotice />
 
         {/* Navigation Menu Grid - Now Controlled */}
-        <NavigationMenu activeItem={activeTab} setActiveItem={setActiveTab} />
+        <NavigationMenu activeItem={activeTab} setActiveItem={handleTabChange} />
         
-        {/* Data Overview - Removed collapse logic as per request */}
-        <DataOverview activeTab={activeTab} />
+        {/* Data Overview - Controls visibility of FilterBar */}
+        <DataOverview 
+          activeTab={activeTab} 
+          onToggleFilters={() => setShowFilters(!showFilters)} 
+        />
         
-        {/* Filter Section - Rounded and Dynamic */}
-        <FilterBar activeTab={activeTab} />
+        {/* Filter Section - Conditionally rendered, hidden by default */}
+        {showFilters && <FilterBar activeTab={activeTab} />}
 
         {/* Main Content Area - Rounded and Dynamic */}
         <div className="space-y-4 pt-2">
