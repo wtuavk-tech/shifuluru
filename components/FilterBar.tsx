@@ -158,6 +158,15 @@ export const FilterBar: React.FC<FilterBarProps> = ({ activeTab }) => {
             {buttons}
           </div>
         );
+      case '试单奖励':
+        return (
+          <div className={baseContainerClass}>
+            <InputGroup label="订单号" placeholder="请输入内容" />
+            <DateRangeGroup label="创建时间" />
+            <SelectGroup label="审核状态" />
+            {buttons}
+          </div>
+        );
       default: // Default 师傅库
         return (
           <div className={baseContainerClass}>

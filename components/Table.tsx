@@ -29,6 +29,8 @@ export const Table: React.FC<TableProps> = ({ activeTab, data }) => {
         return ['序号', '发起办人', '订单号', '待办人', '状态', '处理进度', '反馈报告', '内容', '创建时间', '师傅待办详情', '操作'];
       case '师傅黑名单':
         return ['序号', '微信头像', '师傅姓名/昵称', '归属省市', '联系方式', '标签', '状态', '备注', '操作'];
+      case '试单奖励':
+        return ['序号', '订单号', '师傅姓名', '创建时间', '奖励金额', '图片', '审核状态', '审核时间', '审核人', '审核说明', '操作'];
       default:
         return ['用户名', '师傅uid', '认证状态', '备注', '接单状态', '线下师傅', '地域', '项目', '分成', '品质', '完成率', '订单价值', '来源', '操作'];
     }
@@ -37,26 +39,26 @@ export const Table: React.FC<TableProps> = ({ activeTab, data }) => {
   const columns = getColumns();
 
   return (
-    <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
+    <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-300">
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200 text-[11px]">
+        <table className="min-w-full divide-y divide-gray-300 text-[11px]">
           <thead className="bg-[#f7f8fa]">
             <tr>
               {columns.map((col, i) => (
-                <th key={i} className="px-3 py-2 text-left font-medium text-gray-600 whitespace-nowrap">
+                <th key={i} className="px-3 py-2 text-left font-medium text-gray-600 whitespace-nowrap border-b border-gray-300">
                   {col}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody className="divide-y divide-gray-300">
             {data.map((row, idx) => (
               <tr 
                 key={idx} 
-                className={`${idx % 2 === 1 ? 'bg-[#D6EFFF]' : 'bg-white'} hover:bg-blue-50 transition-colors`}
+                className={`${idx % 2 === 1 ? 'bg-[#F0F9FE]' : 'bg-white'} hover:bg-blue-50 transition-colors`}
               >
                 {columns.map((col, i) => {
-                  if (col === '序号') return <td key={i} className="px-3 py-2.5">{idx + 1}</td>;
+                  if (col === '序号') return <td key={i} className="px-3 py-2.5 border-r border-transparent">{idx + 1}</td>;
                   
                   if (col === '微信头像') {
                     return (
@@ -72,6 +74,16 @@ export const Table: React.FC<TableProps> = ({ activeTab, data }) => {
                     );
                   }
 
+                  if (col === '图片' && activeTab === '试单奖励') {
+                     return (
+                      <td key={i} className="px-3 py-2.5">
+                        <div className="w-10 h-10 bg-gray-100 border border-gray-200 rounded overflow-hidden">
+                           <img src={row['图片']} alt="Proof" className="w-full h-full object-cover" />
+                        </div>
+                      </td>
+                     );
+                  }
+
                   if (col === '操作') {
                     if (activeTab === '师傅黑名单') {
                       return (
@@ -82,6 +94,13 @@ export const Table: React.FC<TableProps> = ({ activeTab, data }) => {
                           </div>
                         </td>
                       );
+                    }
+                    if (activeTab === '试单奖励') {
+                        return (
+                          <td key={i} className="px-3 py-2.5">
+                            <span className="text-blue-500 cursor-pointer hover:underline">审核</span>
+                          </td>
+                        );
                     }
                     return (
                       <td key={i} className="px-3 py-2.5 text-blue-500 cursor-pointer hover:underline">
@@ -126,14 +145,17 @@ export const Table: React.FC<TableProps> = ({ activeTab, data }) => {
 
                   if (col === '审核状态' || col === '状态' || col === '保证金状态' || col === '退款状态' || col === '支付状态') {
                     const statusText = row[col] || '已通过';
-                    const isOrange = ['待审核', '待处理', '部分缴纳', '退款中'].includes(statusText);
+                    let badgeClass = 'border-green-200 bg-green-50 text-green-600';
+                    
+                    if (['待审核', '待处理', '部分缴纳', '退款中', '待审批'].includes(statusText)) {
+                        badgeClass = 'border-orange-200 bg-orange-50 text-orange-500';
+                    } else if (['不通过', '失败', '失效'].includes(statusText)) {
+                        badgeClass = 'border-red-200 bg-red-50 text-red-500';
+                    }
+
                     return (
                       <td key={i} className="px-3 py-2.5">
-                        <span className={`px-2 py-0.5 rounded border text-[10px] ${
-                          isOrange 
-                            ? 'border-orange-200 bg-orange-50 text-orange-500' 
-                            : 'border-green-200 bg-green-50 text-green-600'
-                        }`}>
+                        <span className={`px-2 py-0.5 rounded border text-[10px] ${badgeClass}`}>
                           {statusText}
                         </span>
                       </td>

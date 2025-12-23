@@ -23,6 +23,50 @@ const AVATARS = [
 const ADMINS = ['管理员A', '审核员01', '系统自动', '陈序员', '张经理'];
 
 export const GENERATE_MOCK_DATA = (tab: string): any[] => {
+  if (tab === '试单奖励') {
+    const trialNames = ['小胖', '小胖', '于谦', '于谦', '于谦', '萧炎', '萧炎', '萧炎', '萧炎', '萧炎', '唐三', '林动'];
+    return Array.from({ length: 16 }, (_, index) => {
+      const name = trialNames[index % trialNames.length];
+      const statusSeed = index % 5;
+      let status = '待审核';
+      let auditTime = '';
+      let auditor = '';
+      let remark = '';
+      let amount = '';
+
+      if (statusSeed === 2 || statusSeed === 4) {
+        status = '通过';
+        auditTime = `2025-12-${String(16 - index).padStart(2, '0')} 11:${String(10 + index).padStart(2, '0')}:27`;
+        auditor = '管理员';
+        amount = (Math.random() * 5).toFixed(2);
+        if (index === 4) { amount = '1.00'; remark = '通过'; }
+        if (index === 7) { amount = '1.00'; remark = '问题'; }
+        if (index === 8) { amount = '3.00'; remark = '1额度认为'; auditor = '张水明'; }
+        if (index === 10) { amount = '2.00'; remark = '肉粉色找我'; }
+      } else if (statusSeed === 3) {
+        status = '不通过';
+        auditTime = `2025-08-27 09:11:10`;
+        auditor = '张水明';
+        remark = '发的发生的';
+      }
+
+      return {
+        id: index + 1,
+        '序号': index + 1,
+        '订单号': `25122${String(310000 + index * 1234).substring(0, 9)}`,
+        '师傅姓名': name,
+        '创建时间': `2025-12-23 10:${String(59 - index).padStart(2, '0')}:13`,
+        '奖励金额': amount,
+        '图片': `https://picsum.photos/seed/${index + 100}/50/50`, // Random thumbnail
+        '审核状态': status,
+        '审核时间': auditTime,
+        '审核人': auditor,
+        '审核说明': remark,
+        '操作': '审核'
+      };
+    });
+  }
+
   return Array.from({ length: 20 }, (_, index) => {
     const name = NAMES[index % NAMES.length];
     const admin = ADMINS[index % ADMINS.length];
