@@ -1,12 +1,13 @@
 import React from 'react';
-import { Activity, Search } from 'lucide-react';
+import { Activity, Search, Plus } from 'lucide-react';
 
 interface DataOverviewProps {
   activeTab: string;
   onToggleFilters: () => void;
+  onAddClick?: () => void;
 }
 
-export const DataOverview: React.FC<DataOverviewProps> = ({ activeTab, onToggleFilters }) => {
+export const DataOverview: React.FC<DataOverviewProps> = ({ activeTab, onToggleFilters, onAddClick }) => {
   const isBlacklist = activeTab === '师傅黑名单';
 
   // Stats for the Blacklist view as seen in the screenshot
@@ -31,17 +32,17 @@ export const DataOverview: React.FC<DataOverviewProps> = ({ activeTab, onToggleF
       {/* Left: Title Section */}
       <div className="flex items-center gap-2 min-w-[140px]">
         <Activity className="w-5 h-5 text-[#1890ff]" />
-        <span className="text-[#333] text-[18px] font-bold">数据概览</span>
+        <span className="text-[#333] text-[18px] font-bold font-sans">数据概览</span>
       </div>
 
       {/* Center: Evenly Distributed Stats */}
       <div className="flex-1 flex items-center justify-around px-10">
         {currentStats.map((stat, index) => (
           <div key={index} className="flex items-center gap-2 whitespace-nowrap">
-            <span className="text-[#5A5E66] text-[12px] font-normal">
+            <span className="text-[#5A5E66] text-[12px] font-normal font-sans">
               {stat.label}
             </span>
-            <span className={`${stat.color} text-[16px] font-bold`}>
+            <span className={`${stat.color} text-[16px] font-bold font-mono`}>
               {stat.value}
             </span>
           </div>
@@ -49,13 +50,22 @@ export const DataOverview: React.FC<DataOverviewProps> = ({ activeTab, onToggleF
       </div>
 
       {/* Right: Action Button */}
-      <div className="flex items-center flex-shrink-0">
+      <div className="flex items-center flex-shrink-0 gap-3">
+        {isBlacklist && (
+          <div 
+            onClick={onAddClick}
+            className="flex items-center gap-1 text-white text-[13px] font-medium cursor-pointer hover:bg-blue-600 transition-colors bg-[#1890FF] px-4 py-1.5 rounded-lg shadow-sm"
+          >
+            <Plus size={14} />
+            <span className="font-sans">新增</span>
+          </div>
+        )}
         <div 
           onClick={onToggleFilters}
           className="flex items-center gap-1.5 text-[#1890FF] text-[13px] font-medium cursor-pointer hover:opacity-80 transition-opacity bg-[#D9ECFF] px-4 py-1.5 rounded-lg border border-[#B8D9FF]"
         >
           <Search size={14} />
-          <span>点这高级筛选</span>
+          <span className="font-sans">点这高级筛选</span>
         </div>
       </div>
     </div>

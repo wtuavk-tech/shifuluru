@@ -22,7 +22,7 @@ export const NavigationMenu: React.FC<NavigationMenuProps> = ({ activeItem, setA
             key={item}
             onClick={() => setActiveItem(item)}
             className={`
-              h-[34px] flex items-center justify-center text-[13px] transition-all rounded-lg font-bold tracking-wide border
+              h-[34px] flex items-center justify-center text-[13px] transition-all rounded-lg font-bold tracking-wide border font-sans
               ${isActive
                 ? 'bg-[#1890FF] text-white border-[#1890FF] shadow-md transform scale-[1.02]' 
                 : 'bg-[#F0F9FE] text-[#1890FF] border-[#91D5FF] hover:bg-[#BAE7FF] hover:shadow-sm'

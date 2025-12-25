@@ -42,7 +42,7 @@ export const Table: React.FC<TableProps> = ({ activeTab, data }) => {
     <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-300">
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-300 text-[11px]">
-          <thead className="bg-[#f7f8fa]">
+          <thead className="bg-[#f7f8fa] font-sans">
             <tr>
               {columns.map((col, i) => (
                 <th key={i} className="px-3 py-2 text-left font-medium text-gray-600 whitespace-nowrap border-b border-gray-300">
@@ -58,7 +58,7 @@ export const Table: React.FC<TableProps> = ({ activeTab, data }) => {
                 className={`${idx % 2 === 1 ? 'bg-[#F0F9FE]' : 'bg-white'} hover:bg-blue-50 transition-colors`}
               >
                 {columns.map((col, i) => {
-                  if (col === '序号') return <td key={i} className="px-3 py-2.5 border-r border-transparent">{idx + 1}</td>;
+                  if (col === '序号') return <td key={i} className="px-3 py-2.5 border-r border-transparent font-mono">{idx + 1}</td>;
                   
                   if (col === '微信头像') {
                     return (
@@ -87,7 +87,7 @@ export const Table: React.FC<TableProps> = ({ activeTab, data }) => {
                   if (col === '操作') {
                     if (activeTab === '师傅黑名单') {
                       return (
-                        <td key={i} className="px-3 py-2.5 whitespace-nowrap">
+                        <td key={i} className="px-3 py-2.5 whitespace-nowrap font-sans">
                           <div className="flex items-center gap-2">
                             <span className="text-orange-400 cursor-pointer hover:underline">查看</span>
                             <span className="text-red-500 cursor-pointer hover:underline">删除</span>
@@ -97,13 +97,13 @@ export const Table: React.FC<TableProps> = ({ activeTab, data }) => {
                     }
                     if (activeTab === '试单奖励') {
                         return (
-                          <td key={i} className="px-3 py-2.5">
+                          <td key={i} className="px-3 py-2.5 font-sans">
                             <span className="text-blue-500 cursor-pointer hover:underline">审核</span>
                           </td>
                         );
                     }
                     return (
-                      <td key={i} className="px-3 py-2.5 text-blue-500 cursor-pointer hover:underline">
+                      <td key={i} className="px-3 py-2.5 text-blue-500 cursor-pointer hover:underline font-sans">
                         {activeTab === '完工审核' ? '审核' : '详情'}
                       </td>
                     );
@@ -111,7 +111,7 @@ export const Table: React.FC<TableProps> = ({ activeTab, data }) => {
 
                   if (col === '联系方式' && activeTab === '师傅黑名单') {
                     return (
-                      <td key={i} className="px-3 py-2.5 text-gray-600">
+                      <td key={i} className="px-3 py-2.5 text-gray-600 font-mono">
                         <div className="flex items-center gap-1">
                           <Phone size={10} className="text-blue-400" />
                           <span>{row['手机号'] || '15756453421'}</span>
@@ -127,7 +127,7 @@ export const Table: React.FC<TableProps> = ({ activeTab, data }) => {
                   if (col === '标签' && activeTab === '师傅黑名单') {
                     const tags = row.tags || ['黑单', '成单率低'];
                     return (
-                      <td key={i} className="px-3 py-2.5">
+                      <td key={i} className="px-3 py-2.5 font-sans">
                         <div className="flex flex-wrap gap-1 max-w-[150px]">
                           {tags.map((tag: string, tIdx: number) => (
                             <span key={tIdx} className="px-1.5 py-0.5 border border-blue-200 text-[#1890FF] bg-blue-50 rounded text-[10px] whitespace-nowrap">
@@ -154,7 +154,7 @@ export const Table: React.FC<TableProps> = ({ activeTab, data }) => {
                     }
 
                     return (
-                      <td key={i} className="px-3 py-2.5">
+                      <td key={i} className="px-3 py-2.5 font-sans">
                         <span className={`px-2 py-0.5 rounded border text-[10px] ${badgeClass}`}>
                           {statusText}
                         </span>
@@ -163,7 +163,10 @@ export const Table: React.FC<TableProps> = ({ activeTab, data }) => {
                   }
                   
                   const val = row[col] !== undefined ? row[col] : (row['用户名'] || '-');
-                  return <td key={i} className="px-3 py-2.5 text-gray-600 truncate max-w-[200px]" title={String(val)}>{val}</td>;
+                  // Identify columns that are primarily numbers or codes for font-mono
+                  const isMono = ['UID', '师傅uid', '手机号码', '手机号', '金额', '需缴保证金', '已缴保证金', '综合评分', '信用分', '订单号', '支付订单号', '商户退款单号', '退款单号', '支付金额', '已退金额', '奖励金额', '订单价值', '完成率', '排序'].includes(col) || col.includes('时间');
+                  
+                  return <td key={i} className={`px-3 py-2.5 text-gray-600 truncate max-w-[200px] ${isMono ? 'font-mono' : 'font-sans'}`} title={String(val)}>{val}</td>;
                 })}
               </tr>
             ))}
